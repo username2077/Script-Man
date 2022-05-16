@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>货币中英文大写转换APP</title>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+	<h1>货币中英文大写转换APP</h1>
+	<form id="form1">
+		选择币种：<select id="currency" name="currency" title="币种">
+                <option value="">-----请选择-----</option>
+                <option value="CNY">人民币</option>
+                <option value="GBP">英镑</option>
+                <option value="HKD">港币</option>
+                <option value="USD">美元</option>
+                <option value="CHF">瑞士法郎</option>
+                <option value="SGD">新加坡元</option>
+                <option value="JPY">日元</option>
+                <option value="CAD">加拿大元</option>
+                <option value="AUD">澳大利亚元</option>
+                <option value="EUR">欧元</option>
+                <option value="NZD">新西兰元</option>
+            </select><br>
+		输入金额：<input type="text" name="amount"><br>
+		选择语言：<input type="radio" name="language" value="CN">中文
+				<input type="radio" name="language" value="EN">英文<br>
+		<input type="submit" value="Submit" onclick="currensay()">
+	</form>
+	<script type="text/javascript">
+		function currensay() {
+			$.ajax({
+				type: "GET",
+				datatype: "json",
+				data: $('#form1').serialize(),
+                success: function (result) {
+                    console.log(result);//打印服务端返回的数据(调试用)
+                    if (result.resultCode == 200) {
+                        alert("SUCCESS");
+                    }
+                    ;
+                },
+                error : function() {
+                    alert("ERROR");
+                }
+			});
+		}
+	</script>
+</body>
+</html>

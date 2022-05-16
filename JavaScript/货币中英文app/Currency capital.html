@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html lang="zh-cmn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>人民币和美元大写格式在线工具,美元美金数字金额转换大写,外币大写金额</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="index-page logged-in">
+    <script type="text/javascript">
+function intergernumber(a) {
+    var b = a.length,
+        f, h = 0,
+        g = "",
+        e = Math.ceil(b / 3),
+        k = b - e * 3;
+        g = "";
+    for (f = k; f < b; f += 3) {
+        ++h;
+        num3 = f >= 0 ? a.substring(f, f + 3) : a.substring(0, k + 3);
+        strEng = English(num3);
+        if (strEng != "") {
+            if (g != "") g += ",";
+            g += English(num3) + arr1[e - h]
+        }
+    }
+    return "SAY US DOLLARS "+g.toUpperCase();
+}
+
+function decimalnumber2(a) {
+
+    var b = a.length,
+        f, h = 0,
+        g = "",
+        e = Math.ceil(b / 3),
+        k = b - e * 3;
+        g = "";
+    for (f = k; f < b; f += 3) {
+        ++h;
+        num3 = f >= 0 ? a.substring(f, f + 3) : a.substring(0, k + 3);
+        strEng = English(num3);
+        if (strEng != "") {
+            if (g != "") g += ",";
+            g += English(num3) + arr1[e - h]
+        }
+    }
+    return "CENTS "+g.toUpperCase();
+}
+
+function decimalpoint(a) {
+
+    var b = a.length,
+        f, h = 0,
+        g = "",
+        e = Math.ceil(b / 3),
+        k = b - e * 3;
+        g = "";
+    for (f = k; f < b; f += 3) {
+        ++h;
+        num3 = f >= 0 ? a.substring(f, f + 3) : a.substring(0, k + 3);
+        strEng = English(num3);
+        if (strEng != "") {
+            if (g != "") g += ",";
+            g += English(num3) + arr1[e - h]
+        }
+    }
+    return "POINT "+g.toUpperCase();
+}
+
+function fraction(a) {
+
+    var b = a.length,
+        f, h = 0,
+        g = "",
+        e = Math.ceil(b / 3),
+        k = b - e * 3;
+        g = "";
+    for (f = k; f < b; f += 3) {
+        ++h;
+        num3 = f >= 0 ? a.substring(f, f + 3) : a.substring(0, k + 3);
+        strEng = English(num3);
+        if (strEng != "") {
+            if (g != "") g += ",";
+            g += English(num3) + arr1[e - h]
+        }
+    }
+    return g.toUpperCase();
+}
+
+function numbertowords(number) {
+  
+    document.getElementById("cn").value = numbertoChinayuan(number.value);
+
+    if(number.value.indexOf(".")!=-1){
+
+    var integer = number.value.split(".")[0];
+
+    var decimal = number.value.split(".")[1];
+
+    var decimalword;
+
+    var interword = intergernumber(integer);
+    
+    if(decimal.length>2){
+        alert("The figure is account to two decimal places.eg：8765.55")
+    }else if(decimal=="00"||decimal=="0"){
+        decimalword =" ONLY";
+        //point format
+        decimaltopoint =" ONLY";
+        //fraction foramt
+        decimalfraction=" ONLY";
+    }else{
+
+     decimalword =" AND " + decimalnumber2(decimal);
+     //point format
+     //decimaltopoint =" AND " + decimalpoint(decimal);
+     //fraction foramt
+     //decimalfraction=" AND " + fraction(decimal)+' ' +decimal+"/100";
+    }
+    document.getElementById("en").value = interword+ decimalword;
+    //point format
+    //document.getElementById("en").value += '\r\nOR'+'\r\n'+interword+ decimaltopoint;
+    //fraction format
+    //document.getElementById("en").value += '\r\nOR'+'\r\n'+interword+ decimalfraction;
+    
+  }
+  else{
+    document.getElementById("en").value = numbertotext(number.value);
+  }
+}
+
+function numbertoChinayuan(a) {
+    var b = 9.999999999999E10,
+       f = "零",
+       h = "壹",
+       g = "贰",
+       e = "叁",
+       k = "肆",
+       p = "伍",
+       q = "陆",
+       r = "柒",
+       s = "捌",
+       t = "玖",
+       l = "拾",
+       d = "佰",
+       i = "仟",
+       m = "万",
+       j = "亿",
+       o = "元",
+       c = "角",
+       n = "分",
+       v = "整";
+
+    a = a.toString();
+    if (a == "") { 
+        alert("Use only numbers!");
+        return "";
+    }
+    if (a.match(/[^,.\d]/) != null) {
+        alert("Use only numbers!");
+        return "";
+    }
+    if (a.match(/^((\d{1,3}(,\d{3})*(.((\d{3},)*\d{1,3}))?)|(\d+(.\d+)?))$/) ==
+    null) {
+        alert("Use only numbers!");
+        return "";
+    }
+    a = a.replace(/,/g, "");
+    a = a.replace(/^0+/, "");
+    if (Number(a) > b) {
+        alert("Maximum number is 99999999999.99!");
+        return "";
+    }
+    b = a.split(".");
+    if (b.length > 1) {
+        a = b[0];
+        b = b[1];
+        b = b.substr(0, 2)
+    } else {
+        a = b[0];
+        b = "";
+    }
+    h = new Array(f, h, g, e, k, p, q, r, s, t);
+    l = new Array("", l, d, i);
+    m = new Array("", m, j);
+    n = new Array(c, n);
+    c = "";
+    if (Number(a) > 0) {
+        for (d = j = 0; d < a.length; d++) {
+            e = a.length - d - 1;
+            i = a.substr(d,
+            1);
+            g = e / 4;
+            e = e % 4;
+            if (i == "0") j++;
+            else {
+                if (j > 0) c += h[0];
+                j = 0;
+                c += h[Number(i)] + l[e];
+            }
+            if (e == 0 && j < 4) c += m[g];
+        }
+        c += o;
+    }
+    if (b != "") for (d = 0; d < b.length; d++) {
+        i = b.substr(d, 1);
+        if (i != "0") c += h[Number(i)] + n[d];
+    }
+    if (c == "") c = f + o;
+    if (b.length < 2) c += v;
+    return c = "Say ChineseYuan: " + c
+}
+
+var arr1 = new Array("", " thousand", " million", " billion"),
+    arr2 = new Array("zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"),
+    arr3 = new Array("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"),
+    arr4 = new Array("ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen");
+
+function numbertotext(a) {
+    var b = a.length,
+        f, h = 0,
+        g = "",
+        e = Math.ceil(b / 3),
+        k = b - e * 3;
+        g = "";
+    for (f = k; f < b; f += 3) {
+        ++h;
+        num3 = f >= 0 ? a.substring(f, f + 3) : a.substring(0, k + 3);
+        strEng = English(num3);
+        if (strEng != "") {
+            if (g != "") g += ",";
+            g += English(num3) + arr1[e - h]
+        }
+    }
+    return "SAY US DOLLARS "+g.toUpperCase()+" ONLY";
+}
+
+function English(a) {
+    strRet = "";
+    if (a.length == 3 && a.substr(0, 3) != "000") {
+        if (a.substr(0, 1) != "0") {
+            strRet += arr3[a.substr(0, 1)] + " hundred";
+            if (a.substr(1, 2) != "00") strRet += " and "
+        }
+        a = a.substring(1);
+    }
+    if (a.length == 2)
+        if (a.substr(0, 1) == "0") a = a.substring(1);
+        else if (a.substr(0, 1) == "1") strRet += arr4[a.substr(1, 2)];
+    else {
+        strRet += arr2[a.substr(0, 1)];
+        if (a.substr(1, 1) != "0") strRet += "-";
+        a = a.substring(1)
+    } if (a.length == 1 && a.substr(0, 1) != "0") strRet += arr3[a.substr(0, 1)];
+    return strRet;
+};
+    </script>
+    <form name="kmhpromo" id="kmhpromo">
+        <p>只接受数字金额(不允许有空格)</p>
+        <textarea name="num" cols="90" rows="5" id="num" style="width:100%; "></textarea>
+        <div>
+            <input name="button" type="button" class="bt" onclick="numbertowords(this.form.num)" value="转换大写">&nbsp;
+            <input name="Button" type="button" class="bt" onclick="num.value='';cn.value='';en.value=''" value="清除">
+        </div>
+        <div>
+        选择币种：<select id="currency" title="币种">
+                <option value="">-----请选择-----</option>
+                <option value="CNY">人民币</option>
+                <option value="GBP">英镑</option>
+                <option value="HKD">港币</option>
+                <option value="USD">美元</option>
+                <option value="CHF">瑞士法郎</option>
+                <option value="SGD">新加坡元</option>
+                <option value="JPY">日元</option>
+                <option value="CAD">加拿大元</option>
+                <option value="AUD">澳大利亚元</option>
+                <option value="EUR">欧元</option>
+                <option value="NZD">新西兰元</option>
+            </select>
+        </div>
+        <span id="mdg"></span>
+        <p>美金金额大写结果如下:</p>
+        <textarea name="en" cols="90" rows="6" class="text-area" id="en" style="width:100%; height:120px;"></textarea>
+        <p>人民币金额转换大写结果如下:</p>
+        <textarea name="cn" cols="90" rows="6" class="text-area" id="cn" style="width:100%;height:50px;"></textarea>
+        <p>JSON转换大写结果如下:</p>
+        <textarea name="Json_Result" cols="90" rows="6" class="text-area" id="cn" style="width:100%;height:50px;"></textarea>
+    </form>
+</body>
+</html>
